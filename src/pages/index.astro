@@ -5,7 +5,7 @@ import Base from '../layouts/Base.astro';
 // The CV link only appears once public/cv.pdf exists.
 const hasCV = existsSync('./public/cv.pdf');
 
-// Not on the page yet, add when ready: senior thesis, exotic 7-spheres paper, SHUR code,
+// Not on the page yet, add when ready: exotic 7-spheres paper,
 // Math 72 Lie algebras paper + slides (PDFs already in public/papers/).
 ---
 <Base title="Ribhu Hooja">
@@ -32,6 +32,7 @@ const hasCV = existsSync('./public/cv.pdf');
       <a href="/papers/shur-writeup-provisional.pdf">τ and ϵ invariants of generalized Mazur patterns</a> (in progress)<br />
       with Sean Kim, Filip Rupchin, Shreya Sinha, and Allison Tsypin
     </li>
+    <li><a href="/papers/thesis-draft.pdf">Spectral Geometries in Three Dimensions</a> - A draft of my thesis (November 2026).</li>
   </ul>
 
   <h2>Writing</h2>
@@ -44,6 +45,11 @@ const hasCV = existsSync('./public/cv.pdf');
   <ul>
     <li><em>Satellite operations and bordered Heegaard Floer homology</em>. Dartmouth Topology Seminar, September 24, 2026.</li>
     <li><em>Sunada's method: using group theory to construct isospectral drums</em>. HRUMC, April 25, 2026. (<a href="/papers/HRUMC_Sunadas_Method_slides.pdf">Slides</a>)</li>
+  </ul>
+
+  <h2>Code</h2>
+  <ul>
+    <li><a href="https://github.com/ribhuhooja/CFA-minus-one-one-patterns">satellite-floer</a> - A Python package for computing knot Floer homology of satellites with (1,1) patterns using bordered Floer homology, written for the project above. (<a href="https://pypi.org/project/satellite-floer/">PyPI</a>)</li>
   </ul>
 </Base>
 
