@@ -1,7 +1,7 @@
 ---
 import 'katex/dist/katex.min.css';
-interface Props { title: string; noindex?: boolean }
-const { title, noindex = false } = Astro.props;
+interface Props { title: string; noindex?: boolean; description?: string }
+const { title, noindex = false, description } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
@@ -9,6 +9,8 @@ const { title, noindex = false } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     {noindex && <meta name="robots" content="noindex" />}
+    {description && <meta name="description" content={description} />}
+    <meta name="google-site-verification" content="bwAz0LtHJAIRuUKc0eWX62ZPuGNCOdWb5qaeyrZUluU" />
     <title>{title}</title>
     <style is:global>
       body { max-width: 42rem; margin: 2rem auto; padding: 0 1rem; font: 17px/1.6 Georgia, serif; color: #222; background: #fff; }
