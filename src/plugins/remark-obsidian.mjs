@@ -45,6 +45,8 @@ function wikilinks(tree, index) {
   });
 }
 
+const THEOREM_LIKE = new Set(['theorem', 'lemma', 'proposition', 'corollary', 'conjecture', 'claim', 'definition', 'remark', 'notation', 'example', 'proof']);
+
 function callouts(tree) {
   walk(tree, (node) => {
     if (node.type !== 'blockquote') return;
@@ -74,6 +76,19 @@ function callouts(tree) {
 
     const body = node.children.slice(1);
     if (rest.some((c) => c.type !== 'text' || c.value.trim())) body.unshift({ type: 'paragraph', children: rest });
+
+    // Math-paper environments (> [!Theorem] ..., > [!Proof], ...): run-in "Theorem." label, no box.
+    // The title, if any, is the start of the text, e.g. "Theorem. This process eventually terminates".
+    if (THEOREM_LIKE.has(type) && !fold) {
+      const label = { type: 'thmLabel', data: { hName: 'span', hProperties: { className: ['thm-label'] } }, children: [{ type: 'text', value: `${rawType[0].toUpperCase()}${rawType.slice(1)}.` }] };
+      if (hasTitle) body.unshift({ type: 'paragraph', children: [label, { type: 'text', value: ' ' }, ...title] });
+      else if (body[0]?.type === 'paragraph') body[0].children.unshift(label, { type: 'text', value: ' ' });
+      else body.unshift({ type: 'paragraph', children: [label] });
+      node.type = 'callout';
+      node.data = { hName: 'div', hProperties: { className: ['thm', `thm-${type}`] } };
+      node.children = body;
+      return;
+    }
 
     node.type = 'callout';
     node.data = { hName: fold ? 'details' : 'div', hProperties: { className: ['callout', `callout-${type}`], ...(fold === '+' ? { open: true } : {}) } };
