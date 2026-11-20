@@ -1,6 +1,6 @@
 // Preliminary sketch: 2D Ising model (Metropolis, periodic boundary) with a temperature slider.
 // Embed in a post with: <div data-widget="ising"></div>
-const N = 128;
+const N = 256;
 const UP: [number, number, number] = [43, 108, 176]; // blue, spin +1
 const DOWN: [number, number, number] = [197, 48, 48]; // red, spin -1
 const TC = 2 / Math.log(1 + Math.SQRT2); // ≈ 2.269
