@@ -40,6 +40,12 @@ const showProjectLink = post.data.series === 'comp-neuro' && post.id !== project
   .callout-body > :last-child { margin-bottom: 0; }
   details.callout > summary { cursor: pointer; }
 
+  /* Tables */
+  article table { border-collapse: collapse; margin: 1.25rem auto; font-size: .95em; }
+  article th, article td { padding: .35rem .9rem; border-bottom: 1px solid #ddd; }
+  article thead th { border-bottom: 2px solid #999; }
+  article tbody tr:last-child td { border-bottom: 0; }
+
   /* Widgets */
   .widget { margin: 1.5rem auto; width: min(100%, 320px); }
   .widget canvas { display: block; width: 100%; aspect-ratio: 1; border: 1px solid #ccc; }
