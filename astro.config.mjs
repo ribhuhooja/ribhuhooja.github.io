@@ -4,6 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import { unified } from '@astrojs/markdown-remark';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
+import remarkObsidian from './src/plugins/remark-obsidian.mjs';
 import { readdirSync, readFileSync } from 'node:fs';
 
 // Slugs of posts with `unlisted: true` (or drafts) in front matter, kept out of the sitemap.
@@ -23,7 +24,7 @@ export default defineConfig({
   markdown: {
     // Astro 7's default processor (Sätteri) doesn't run remark/rehype plugins; use the unified one for KaTeX.
     processor: unified({
-      remarkPlugins: [remarkMath],
+      remarkPlugins: [remarkMath, remarkObsidian],
       rehypePlugins: [[rehypeKatex, { macros: { '\\R': '\\mathbb{R}', '\\Z': '\\mathbb{Z}', '\\C': '\\mathbb{C}', '\\HF': '\\mathit{HF}' } }]],
     }),
   },
