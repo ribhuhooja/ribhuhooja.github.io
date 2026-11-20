@@ -8,10 +8,9 @@ import { existsSync, readFileSync, writeFileSync, rmSync, readdirSync } from 'no
 const posts = {
   'Exploring Hopfield networks': { slug: 'exploring-hopfield-networks', order: 0 },
   'What is a spin glass network?': { slug: 'spin-glass-networks', order: 1 },
-  'Spin glass networks math supplement': { slug: 'spin-glass-math-supplement', order: 2, title: 'Spin-glass networks: math supplement' },
-  'Hopfield networks': { slug: 'hopfield-networks', order: 3 },
-  'Modern Hopfield networks': { slug: 'modern-hopfield-networks', order: 4 },
-  'Experimental data': { slug: 'experimental-data', order: 5 },
+  'Hopfield networks': { slug: 'hopfield-networks', order: 2 },
+  'Modern Hopfield networks': { slug: 'modern-hopfield-networks', order: 3 },
+  'Experimental data': { slug: 'experimental-data', order: 4 },
 };
 const widgets = { '(widget)': '<div data-widget="ising"></div>' };
 const ignore = new Set(['README.md', 'WEBSITE_BRIEF.md', 'CLAUDE.md', 'CLAUDE.local.md']);

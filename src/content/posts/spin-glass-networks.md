@@ -5,7 +5,7 @@ unlisted: true
 series: comp-neuro
 order: 1
 ---
-John Hopfield was a physicist. He worked on quantum-mechanical properties of crystals, condensed-matter physics, and molecular biology. How did he invent a neural network? To him, this was a natural thing to do. He was familiar with a certain kind of physical model, called a spin glass network, and he was also following developments in computer science and neural networks. He had the right combination of backgrounds and had enormous success because of how he combined them.
+John Hopfield is a physicist. Earlier in his career, he worked on quantum-mechanical properties of crystals, condensed-matter physics, and molecular biology. How did he invent a neural network? To him, this was a natural thing to do. He was familiar with a certain kind of physical model, called a spin glass network, and he was also following developments in computer science and neural networks. He had the right combination of backgrounds and has had enormous success (a Nobel prize!) because of how he combined them.
 
 To understand his perspective, we will have to understand spin glass networks. Spin-glass networks are a toy model of magnetism. They are simple to describe, and (sometimes) simple to analyze, but still exhibit a lot of interesting mathematics and phenomena, like phase transitions. They are the favorite child of statistical physicists on the physics side and probabilists on the math side. The 2022 fields medallist Hugo Duminil-Copin won his medal for solving some of the problems arising from spin glass networks, especially about phase transition temperatures.
 
@@ -40,9 +40,17 @@ What happens *at* the critical point? Theoretically, in the infinitely large lat
 
 > This is exactly the same meaning of "phase" as in the phrase "phases of matter." From a statistical mechanics point of view, a phase of matter is exactly the large-scale probabilistic behavior of small independent parts. Also see: Lattice gas models.
 ## Other networks
+The specific network described above is called the *Ising model*, named after Ernst Ising. The main property of this model is that atoms only interact with their adjacent atoms, and that atoms favor being in the same spin as their neighbors. Both of these properties can be generalized.
 
-The specific network described above is called the *Ising model*, named after Ernst Ising. 
+Suppose we have $N$ atoms in our system. For every pair of atoms $(i, j)$, we can decide if that pair of atoms interacts, and how it interacts. We encode this in an *interaction matrix* $J$. If we don't want that pair to interact at all, we set $J_{ij} = 0$. If we want the pair to prefer being in the same spin state, we set $J_{ij} = 1$; if not, we set it to $-1$. Thus, the general equation becomes $$H = -\sum_{(i, j)} J_{ij}\sigma_i\sigma_j$$
+Sometimes we globally bias the system by adding a magnetic field $h$, giving us the Hamiltonian $$H = -\sum_{(i, j)} J_{ij}\sigma_i\sigma_j - h\sum_i\sigma_i$$ 
+> Suppose $h$ is large, and we run the simulation. Then it would strongly bias the $\sigma_i$ to be $+1$, "magnetizing" the whole model. If you then switch off the magnetic field, if $T$ is low, the system will be stuck at mostly $+1$. If you raise the temperature, random fluctuations will dominate again and we "lose magnetization." Even such a simple model can recover physical behavior!
 
+In the Ising model, we set $J_{ij}$ to 1 if $i$ and $j$ are neighbors and zero otherwise. In the Sherrington-Kirkpatrick (SK) model, one forgets all geometry and chooses each $J_{ij}$ as an independent random variable (or all $+1$, or by any other scheme). A model that does this is called a "mean field model." While not visually appealing, the SK model has the benefit of being easier to compute.
+
+There are more generalizations. In the Potts model, there are discretely many spins instead of just 2, and $\sigma_i \sigma_j$ is replaced by $2(\delta(\sigma_i, \sigma_j)-1)$ i.e. $+1$ if same and $-1$ if different. In the NK model, not only are there interactions $J_{ij}$ associated to pairs, but also $J_{ijk}$ to triples, and so on (here "$N$" is the number of atoms and "$K$" the number of atoms per interaction; $K=3$ means that we don't go beyond $J_{ijk}$. Hence, "$NK$ model." Truly a feat of naming). In the Random Energy Model (REM), we forget that the energies $H_1, H_2, \ldots, H_{2^N}$ are associated to atoms at all and just sample $2^N$ numbers per some Gaussian.
+
+Perhaps my favorite version of these is the $XY$ model. It is like the Ising model, except spins are allowed to take any angle value from $0$ to $2\pi$, instead of just up and down. The interaction between neighbors is proportional to $\cos(\theta_i - \theta_j)$, so if they point in the same direction energy is minimized, just like the Ising model. When we simulate this model (for instance using colors to represent angles), in the low-temperature regime we see "vortices" and "anti-vortices" that act like charges attracting and repelling each other (for a simulation see [this](https://www.ibiblio.org/e-notes/Perc/xy.htm)). This is incredibly interesting behavior for such a simple model!
 
 ## Some other applications
 
@@ -50,8 +58,7 @@ In the next post, we will see an application of the spin glass idea to neural ne
 
 One way of doing this is called "simulated annealing." This is the idea of starting the system at a high temperature and slowly cooling it down. Conceptually, this is just like having a large step size for gradient descent and then making it smaller as time goes on. When the temperature is high, the probability difference between a high energy state and a low energy state is smaller, so states are explored more randomly. In the low temperature regime, states that are low-energy (compared to their neighbors) are much more likely. Thus, at the start the system explores states semi-randomly, and as it cools it starts to have a stronger and stronger preference for stabler states. This means that the area of configuration space that is explored at the start is large, and starts to shrink as time goes on. This means that more space is searched and the chances of ending up in a local minimum that is far from optimal are low.
 
-Up: [[Exploring Hopfield networks]]
 
 Next: [[Hopfield networks]]
 
-Math details in [[Spin-glass networks: math supplement]]
+[[Exploring Hopfield networks|Back to project main page]]

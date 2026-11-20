@@ -9,6 +9,7 @@ order: 0
 
 In class, we looked at Hopfield networks through the lens of neural networks, describing them as recurrent single-layer dense networks. This is not necessarily how Hopfield looked at them. In statistical mechanics, a spin glass network is a type of model for magnets (and more). Each model has many configurations, each with an energy, and over time the system tends to a state that minimizes energy. The Hopfield network is a spin glass network that stores particular memories in its energy function by having the memorized states be minima of the energy.
 
+In this series of posts, I will introduce spin glass networks, and then talk about Hopfield networks and their modern variants. Modern Hopfield networks are particularly interesting because the 2020 paper "Hopfield Networks is All You Need" (sic) explains how modern Hopfield networks can recover the Transformer attention mechanism. I will also talk about the math (and very sketchily, the physics) behind these things, indicating (for instance) how we derive the capacities of Hopfield networks.
 
 > [!AI statement] 
 > I wrote every word and equation in this project. I used Claude Code to help program the simulations and the website
@@ -16,7 +17,6 @@ In class, we looked at Hopfield networks through the lens of neural networks, de
 ---
 ### Posts
 [[What is a spin glass network?]]
-- [[Spin-glass networks: math supplement]]
 [[Hopfield networks]]
 [[Modern Hopfield networks]]
 [[Experimental data]]
@@ -25,7 +25,7 @@ In class, we looked at Hopfield networks through the lens of neural networks, de
 ### Further reading
 If this topic is of interest to you, then here are some sources for further reading, arranged in order of seriousness.
 
-First, on the statistical mechanics side of things
+On the statistical mechanics side of things,
 1. I first learned about spin glasses from [this beautiful video on percolation](https://www.youtube.com/watch?v=a-767WnbaCQ), and its [follow up](https://www.youtube.com/watch?v=yEcysu5xZH0) which does some mathematical analysis of the critical temperature (for a lattice gas system, which is a little different from the spin glasses we discussed, but has similar critical behavior). They are incredibly well-made, do some actual mathematics along with pretty visuals, and talk about a lot of different math in this area.
 2. [Lewis Cole's blog posts](https://lewiscoleblog.com/spin-glass-models) on spin glasses are detailed yet accessible. He talks about them from the programmer's lens, going into various simulation algorithms and applications to optimization.
 3. *Statistical Mechanics of Lattice Systems* by S. Friedli and Y. Velenik, available on [Velenik's website](https://www.unige.ch/~velenik/#/book) (along with lectures and other resources), is a math-y but friendly exploration of these systems.
@@ -33,7 +33,8 @@ First, on the statistical mechanics side of things
 
 On the machine learning side of things, 
 1. [Hopfield networks is all you need](https://ml-jku.github.io/hopfield-layers/#selfatt), a blog post explaining the paper of the same name. Their main thesis is to recover the attention mechanism from transformers inside modern Hopfield networks.
-2. ["Walkthrough of "Hopfield Networks are all you need"](https://www.beren.io/2020-11-02-Walkthrough_Hopfield-Networks-Is-All-You-Need/) is a blog post explaining the blog post explaining that paper, going into more detail than the original blog post.
+2. [Walkthrough of "Hopfield Networks are all you need"](https://www.beren.io/2020-11-02-Walkthrough_Hopfield-Networks-Is-All-You-Need/) is a blog post explaining the blog post explaining that paper, going into more detail than the original blog post.
+3. [Modern methods in associative memory](https://arxiv.org/abs/2507.06211), co-written by the Krotov who co-introduced modern Hopfield networks, unifies all the different Hopfield variants, along with other things like transformers, into a single framework.
 
 
 ---
