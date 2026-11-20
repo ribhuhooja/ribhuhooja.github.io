@@ -76,7 +76,7 @@ function callouts(tree) {
     const titleChildren = hasTitle && type === 'note'
       ? title
       : hasTitle
-      ? [{ type: 'calloutLabel', data: { hName: 'span', hProperties: { className: ['callout-label'] } }, children: [{ type: 'text', value: `${typeName}:` }] }, { type: 'text', value: ' ' }, ...title]
+      ? [{ type: 'calloutLabel', data: { hName: 'span', hProperties: { className: ['callout-label'] } }, children: [{ type: 'text', value: `${typeName}:` }] }, { type: 'text', value: ' ' }, { type: 'calloutName', data: { hName: 'span', hProperties: { className: ['callout-name'] } }, children: title }]
       : [{ type: 'text', value: typeName }];
 
     const body = node.children.slice(1);

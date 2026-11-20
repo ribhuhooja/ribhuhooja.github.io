@@ -31,7 +31,9 @@ const showProjectLink = post.data.series === 'comp-neuro' && post.id !== project
   .callout { margin: 1.5rem 0; padding: .75rem 1rem; border: 1px solid #d8dde6; border-left: 3px solid #1a4f8b; border-radius: 3px; background: #f7f9fc; }
   .callout-title { font-weight: bold; }
 
-  .callout-label { font-style: italic; font-weight: normal; }
+  /* "> [!Theorem] Title": bold type, italic title. */
+  .callout-label { font-weight: bold; }
+  .callout-name { font-weight: normal; font-style: italic; }
   /* Proofs end with a QED box. */
   .callout-proof .callout-body::after { content: '∎'; display: block; text-align: right; margin-top: -1.6em; }
   .callout-body > :first-child { margin-top: .4rem; }
