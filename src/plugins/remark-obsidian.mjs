@@ -72,7 +72,10 @@ function callouts(tree) {
     const hasTitle = title.some((c) => c.type !== 'text' || c.value.trim());
     // "> [!Theorem] Some title" -> title "Theorem: Some title"; with no title, just "Theorem".
     const typeName = rawType[0].toUpperCase() + rawType.slice(1);
-    const titleChildren = hasTitle
+    // [!note] is the plain box: "> [!note] Some title" shows just "Some title".
+    const titleChildren = hasTitle && type === 'note'
+      ? title
+      : hasTitle
       ? [{ type: 'calloutLabel', data: { hName: 'span', hProperties: { className: ['callout-label'] } }, children: [{ type: 'text', value: `${typeName}:` }] }, { type: 'text', value: ' ' }, ...title]
       : [{ type: 'text', value: typeName }];
 
