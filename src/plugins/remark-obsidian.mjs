@@ -83,8 +83,40 @@ function callouts(tree) {
   });
 }
 
+// remark-math only treats $$ as display math when the $$ are on their own lines; `$$ x $$` written
+// on one line (or mid-sentence) becomes inline math. Obsidian shows those as display math, so match it
+// by splitting the paragraph around them.
+function displayMath(tree, source) {
+  const isDouble = (n) => n.type === 'inlineMath' && n.position && source.startsWith('$$', n.position.start.offset);
+  walk(tree, (node) => {
+    if (!node.children?.some((c) => c.type === 'paragraph' && c.children.some(isDouble))) return;
+    node.children = node.children.flatMap((child) => {
+      if (child.type !== 'paragraph' || !child.children.some(isDouble)) return [child];
+      const out = [];
+      let run = [];
+      const flush = () => {
+        // Trim the whitespace/newlines left at the edges of each split piece.
+        if (run.length && run[0].type === 'text') run[0] = { ...run[0], value: run[0].value.replace(/^\s+/, '') };
+        const l = run.length - 1;
+        if (l >= 0 && run[l].type === 'text') run[l] = { ...run[l], value: run[l].value.replace(/\s+$/, '') };
+        if (run.some((c) => c.type !== 'text' || c.value)) out.push({ type: 'paragraph', children: run });
+        run = [];
+      };
+      for (const c of child.children) {
+        if (isDouble(c)) {
+          flush();
+          out.push({ type: 'math', value: c.value, data: { hName: 'pre', hChildren: [{ type: 'element', tagName: 'code', properties: { className: ['language-math', 'math-display'] }, children: [{ type: 'text', value: c.value }] }] } });
+        } else run.push(c);
+      }
+      flush();
+      return out;
+    });
+  });
+}
+
 export default function remarkObsidian() {
-  return (tree) => {
+  return (tree, file) => {
+    displayMath(tree, String(file.value));
     wikilinks(tree, postIndex());
     callouts(tree);
   };
