@@ -46,7 +46,7 @@ Suppose we have $N$ atoms in our system. For every pair of atoms $(i, j)$, we ca
 (We're only doing this once per pair, so $J_{ij} = J_{ji}$ and $J$ is a symmetric matrix)
 
 Sometimes we globally bias the system by adding a magnetic field $h$, giving us the Hamiltonian $$H = -\sum_{(i, j)} J_{ij}\sigma_i\sigma_j - h\sum_i\sigma_i$$ 
-(Magnetized widget)
+<div data-widget="ising-field"></div>
 
 > Suppose $h$ is large, and we run the simulation. Then it would strongly bias the $\sigma_i$ to be $+1$, "magnetizing" the whole model. If you then switch off the magnetic field, if $T$ is low, the system will be stuck at mostly $+1$. If you raise the temperature, random fluctuations will dominate again and we "lose magnetization." Even such a simple model can recover physical behavior!
 
@@ -60,7 +60,7 @@ Perhaps my favorite version of these is the $XY$ model. It is like the Ising mod
 
 In the [[Hopfield networks|next post]], we will see an application of the spin glass idea to neural networks. However, these are not the only applications of spin glass networks. One of the applications in optimization problems. The main idea is to encode some kind of optimization problem into the Hamiltonian of a spin glass system. For instance, one can map a 3-SAT type problem onto the atoms in the system and put formulas into the interaction matrix. The goal is to find a configuration that minimizes the energy.
 
-(drawing widget)
+<div data-widget="ising-draw"></div>
 
 > When you draw on this, it sets the edges in the region you're drawing to $-1$, forming walls
 

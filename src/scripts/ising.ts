@@ -3,12 +3,15 @@
 //   <div data-widget="ising-field"></div>  temperature + magnetic field sliders
 //   <div data-widget="ising-draw"></div>   temperature slider; draw on the grid to make couplings -1
 //
-// Energy: H = -sum_{<i,j>} J_ij s_i s_j - h sum_i s_i, with J_ij = +1, except J_ij = -1 on every bond
-// that touches a drawn (yellow) tile.
+// Energy: H = -sum_{<i,j>} J_ij s_i s_j - h sum_i s_i, with J_ij = +1, except J_ij = -1 on bonds that
+// cross the edge of a drawn region (one end drawn, the other not). Inside a drawn region bonds stay +1,
+// so a stroke acts as a wall: the spins across its edge want to be opposite.
 const N = 512;
 const UP: [number, number, number] = [43, 108, 176]; // blue, spin +1
 const DOWN: [number, number, number] = [197, 48, 48]; // red, spin -1
-const DRAWN: [number, number, number] = [236, 196, 64]; // yellow, tiles whose bonds are -1
+// Drawn tiles are tinted yellow but still show their spin.
+const tint = (c: [number, number, number]): [number, number, number] => c.map((v, k) => Math.round(0.45 * v + 0.55 * [240, 200, 60][k])) as [number, number, number];
+const UP_DRAWN = tint(UP), DOWN_DRAWN = tint(DOWN);
 const TC = 2 / Math.log(1 + Math.SQRT2); // ≈ 2.269
 const BRUSH = 6; // drawing radius, in cells
 
@@ -26,7 +29,7 @@ export function mountIsing(root: HTMLElement, variant: Variant) {
   const draw = variant === 'ising-draw';
   root.classList.add('widget', 'ising');
   root.innerHTML = `
-    <canvas width="${N}" height="${N}" aria-label="Ising model simulation: blue and red squares are up and down spins${draw ? '; drag to draw yellow tiles whose couplings are -1' : ''}"></canvas>
+    <canvas width="${N}" height="${N}" aria-label="Ising model simulation: blue and red squares are up and down spins${draw ? '; drag to draw walls: bonds across the edge of a drawn region are -1' : ''}"></canvas>
     ${slider('<i>T</i>', 0.5, 5, TC)}
     ${field ? slider('<i>h</i>', -1, 1, 0) : ''}
     ${draw ? '<p class="widget-row"><span class="widget-hint">Drag on the grid to draw. Shift-drag erases.</span><button type="button">Clear</button></p>' : ''}`;
@@ -37,7 +40,7 @@ export function mountIsing(root: HTMLElement, variant: Variant) {
   const img = ctx.createImageData(N, N);
 
   const s = new Int8Array(N * N).map(() => (Math.random() < 0.5 ? 1 : -1));
-  const drawn = new Uint8Array(N * N); // 1 = yellow tile: all four of its bonds have J = -1
+  const drawn = new Uint8Array(N * N); // 1 = drawn (yellow) tile; bonds from it to undrawn tiles have J = -1
 
   // Flipping s_i changes the energy by dE = 2 s_i (local + h), where local = sum_j J_ij s_j ∈ {-4,-2,0,2,4}.
   // accept[(s_i > 0 ? 9 : 0) + local + 4] = min(1, e^{-dE/T}).
@@ -61,9 +64,8 @@ export function mountIsing(root: HTMLElement, variant: Variant) {
       const x = i % N, y = (i / N) | 0;
       const r = y * N + ((x + 1) % N), l = y * N + ((x + N - 1) % N);
       const d = ((y + 1) % N) * N + x, u = ((y + N - 1) % N) * N + x;
-      let local;
-      if (drawn[i]) local = -(s[r] + s[l] + s[d] + s[u]);
-      else local = (drawn[r] ? -s[r] : s[r]) + (drawn[l] ? -s[l] : s[l]) + (drawn[d] ? -s[d] : s[d]) + (drawn[u] ? -s[u] : s[u]);
+      const di = drawn[i];
+      const local = (drawn[r] !== di ? -s[r] : s[r]) + (drawn[l] !== di ? -s[l] : s[l]) + (drawn[d] !== di ? -s[d] : s[d]) + (drawn[u] !== di ? -s[u] : s[u]);
       const p = accept[(s[i] > 0 ? 9 : 0) + local + 4];
       if (p >= 1 || Math.random() < p) s[i] = -s[i];
     }
@@ -71,7 +73,7 @@ export function mountIsing(root: HTMLElement, variant: Variant) {
 
   const paint = () => {
     for (let i = 0; i < N * N; i++) {
-      const [r, g, b] = drawn[i] ? DRAWN : s[i] > 0 ? UP : DOWN;
+      const [r, g, b] = s[i] > 0 ? (drawn[i] ? UP_DRAWN : UP) : drawn[i] ? DOWN_DRAWN : DOWN;
       img.data[4 * i] = r; img.data[4 * i + 1] = g; img.data[4 * i + 2] = b; img.data[4 * i + 3] = 255;
     }
     ctx.putImageData(img, 0, 0);
