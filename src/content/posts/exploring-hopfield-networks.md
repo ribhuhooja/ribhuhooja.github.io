@@ -39,7 +39,9 @@ On the machine learning side of things,
 ---
 ## References
 
-1. REM original paper
-2. Hopfield original paper
-3. Modern Hopfield network original paper
-4. Hopfield networks is all you need
+1. _Neural Networks and Physical Systems with Emergent Collective Computational Abilities_, J. J. Hopfield. Proc. Natl. Acad. Sci. USA **79**(8), 2554–2558 – **Published April 1982**. DOI: [https://doi.org/10.1073/pnas.79.8.2554](https://doi.org/10.1073/pnas.79.8.2554)
+2. _The Capacity of the Hopfield Associative Memory_, R. J. McEliece, E. C. Posner, E. R. Rodemich, S. S. Venkatesh. IEEE Trans. Inf. Theory **33**(4), 461–482 – **Published July 1987**. DOI: [https://doi.org/10.1109/TIT.1987.1057328](https://doi.org/10.1109/TIT.1987.1057328)
+3. _Storing Infinite Numbers of Patterns in a Spin-Glass Model of Neural Networks_, D. Amit, H. Gutfreund, H. Sompolinsky. Phys. Rev. Lett. **55**, 1530 – **Published 30 September 1985**. DOI: [https://doi.org/10.1103/PhysRevLett.55.1530](https://doi.org/10.1103/PhysRevLett.55.1530)
+4. _Dense Associative Memory for Pattern Recognition_, D. Krotov, J. J. Hopfield. Advances in Neural Information Processing Systems **29** (NIPS 2016), 1172–1180. arXiv: [https://arxiv.org/abs/1606.01164](https://arxiv.org/abs/1606.01164)
+5. _On a Model of Associative Memory with Huge Storage Capacity_, M. Demircigil, J. Heusel, M. Löwe, S. Upgang, F. Vermet. J. Stat. Phys. **168**, 288–299 – **Published 2017**. DOI: [https://doi.org/10.1007/s10955-017-1806-y](https://doi.org/10.1007/s10955-017-1806-y)
+6. _Hopfield Networks is All You Need_, H. Ramsauer, B. Schäfl, J. Lehner, P. Seidl, M. Widrich, T. Adler, L. Gruber, M. Holzleitner, M. Pavlović, G. K. Sandve, V. Greiff, D. Kreil, M. Kopp, G. Klambauer, J. Brandstetter, S. Hochreiter. ICLR 2021. arXiv: [https://arxiv.org/abs/2008.02217](https://arxiv.org/abs/2008.02217)

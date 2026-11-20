@@ -62,9 +62,11 @@ In the [[Hopfield networks|next post]], we will see an application of the spin g
 
 <div data-widget="ising-draw"></div>
 
-> When you draw on this, it sets the edges in the region you're drawing to $-1$, forming walls
+> When you draw on this, it makes new regions. Crossing region walls has a -1 edge, not +1
 
 One way of doing this is called "simulated annealing." This is the idea of starting the system at a high temperature and slowly cooling it down. Conceptually, this is just like having a large step size for gradient descent and then making it smaller as time goes on. When the temperature is high, the probability difference between a high energy state and a low energy state is smaller, so states are explored more randomly. In the low temperature regime, states that are low-energy (compared to their neighbors) are much more likely. Thus, at the start the system explores states semi-randomly, and as it cools it starts to have a stronger and stronger preference for stabler states. This means that the area of configuration space that is explored at the start is large, and starts to shrink as time goes on. This means that more space is searched and the chances of ending up in a local minimum that is far from optimal are low.
+
+> These two dynamics are called "quenching" (instantly reducing temperature) and "annealing" (slowly dropping). Not to be confused with quenched and annealed disorder, which are two different types of models. In quenched disorder, the couplings $J_{ij}$ are frozen as the spins vary, while in annealed disorder, both the couplings and the spins vary at similar timescales. 
 
 
 Next: [[Hopfield networks]]

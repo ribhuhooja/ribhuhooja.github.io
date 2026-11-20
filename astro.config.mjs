@@ -22,6 +22,7 @@ export default defineConfig({
     sitemap({ filter: (page) => !page.includes('/courses/') && !hidden.some((slug) => page.includes(`/posts/${slug}/`)) }),
   ],
   markdown: {
+    shikiConfig: { theme: 'github-light' },
     // Astro 7's default processor (Sätteri) doesn't run remark/rehype plugins; use the unified one for KaTeX.
     processor: unified({
       remarkPlugins: [remarkMath, remarkObsidian],
