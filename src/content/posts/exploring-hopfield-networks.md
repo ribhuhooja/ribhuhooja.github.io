@@ -5,7 +5,7 @@ unlisted: true
 series: comp-neuro
 order: 0
 ---
-> Final project for COSC 16: Computational Neuroscience
+> Final project for COSC 16: Computational Neuroscience, Fall 2026
 
 In class, we looked at Hopfield networks through the lens of neural networks, describing them as recurrent single-layer dense networks. This is not necessarily how Hopfield looked at them. In statistical mechanics, a spin glass network is a type of model for magnets (and more). Each model has many configurations, each with an energy, and over time the system tends to a state that minimizes energy. The Hopfield network is a spin glass network that stores particular memories in its energy function by having the memorized states be minima of the energy.
 
