@@ -18,7 +18,7 @@ const showProjectLink = post.data.series === 'comp-neuro' && post.id !== project
 </Base>
 
 <script>
-  if (document.querySelector('[data-widget="ising"]')) import('../../scripts/ising.ts');
+  if (document.querySelector('[data-widget^="ising"]')) import('../../scripts/ising.ts');
 </script>
 
 <style is:global>
@@ -45,4 +45,5 @@ const showProjectLink = post.data.series === 'comp-neuro' && post.id !== project
   .widget canvas { display: block; width: 100%; aspect-ratio: 1; border: 1px solid #ccc; }
   .widget-control { display: flex; flex-direction: column; gap: .2rem; margin-top: .5rem; font-size: .9em; }
   .widget-control input { width: 100%; }
+  .widget-row { display: flex; justify-content: space-between; align-items: center; gap: .5rem; margin: .5rem 0 0; font-size: .85em; color: #555; }
 </style>

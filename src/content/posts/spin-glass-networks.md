@@ -28,7 +28,7 @@ In the following simulation of a spin glass, try moving the slider to adjust tem
 
 <div data-widget="ising"></div>
 
-> [!Remark] How do we simulate one of these? 
+> [!note] How do we simulate one of these? 
 > 
 > We have a probability distribution on states given by the Boltzmann distribution, but we also have to figure out how to "sample" the probability distribution i.e. get states in accordance to the probability rule. There are a bunch of ways of doing this, but the most standard one is called the "Metropolis-Hastings algorithm."
 > 
@@ -46,6 +46,8 @@ Suppose we have $N$ atoms in our system. For every pair of atoms $(i, j)$, we ca
 (We're only doing this once per pair, so $J_{ij} = J_{ji}$ and $J$ is a symmetric matrix)
 
 Sometimes we globally bias the system by adding a magnetic field $h$, giving us the Hamiltonian $$H = -\sum_{(i, j)} J_{ij}\sigma_i\sigma_j - h\sum_i\sigma_i$$ 
+(Magnetized widget)
+
 > Suppose $h$ is large, and we run the simulation. Then it would strongly bias the $\sigma_i$ to be $+1$, "magnetizing" the whole model. If you then switch off the magnetic field, if $T$ is low, the system will be stuck at mostly $+1$. If you raise the temperature, random fluctuations will dominate again and we "lose magnetization." Even such a simple model can recover physical behavior!
 
 In the Ising model, we set $J_{ij}$ to 1 if $i$ and $j$ are neighbors and zero otherwise. In the Sherrington-Kirkpatrick (SK) model, one forgets all geometry and chooses each $J_{ij}$ as an independent random variable (or all $+1$, or by any other scheme). A model that does this is called a "mean field model." While not visually appealing, the SK model has the benefit of being easier to compute.
@@ -57,6 +59,10 @@ Perhaps my favorite version of these is the $XY$ model. It is like the Ising mod
 ## Some other applications
 
 In the [[Hopfield networks|next post]], we will see an application of the spin glass idea to neural networks. However, these are not the only applications of spin glass networks. One of the applications in optimization problems. The main idea is to encode some kind of optimization problem into the Hamiltonian of a spin glass system. For instance, one can map a 3-SAT type problem onto the atoms in the system and put formulas into the interaction matrix. The goal is to find a configuration that minimizes the energy.
+
+(drawing widget)
+
+> When you draw on this, it sets the edges in the region you're drawing to $-1$, forming walls
 
 One way of doing this is called "simulated annealing." This is the idea of starting the system at a high temperature and slowly cooling it down. Conceptually, this is just like having a large step size for gradient descent and then making it smaller as time goes on. When the temperature is high, the probability difference between a high energy state and a low energy state is smaller, so states are explored more randomly. In the low temperature regime, states that are low-energy (compared to their neighbors) are much more likely. Thus, at the start the system explores states semi-randomly, and as it cools it starts to have a stronger and stronger preference for stabler states. This means that the area of configuration space that is explored at the start is large, and starts to shrink as time goes on. This means that more space is searched and the chances of ending up in a local minimum that is far from optimal are low.
 

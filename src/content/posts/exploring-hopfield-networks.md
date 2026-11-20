@@ -12,14 +12,13 @@ In class, we looked at Hopfield networks through the lens of neural networks, de
 In this series of posts, I will introduce spin glass networks, and then talk about Hopfield networks and their modern variants. Modern Hopfield networks are particularly interesting because the 2020 paper "Hopfield Networks is All You Need" (sic) explains how modern Hopfield networks can recover the Transformer attention mechanism. I will also talk about the math (and very sketchily, the physics) behind these things, indicating (for instance) how we derive the capacities of Hopfield networks.
 
 > [!AI statement] 
-> I wrote every word and equation in this project. I used Claude Code to help program the simulations and the website
+> I wrote every word and equation in this project, and wrote the storage capacity experiments myself. I used Claude Code to help program the the website and some of the widgets on it.
 
 ---
 ### Posts
 [[What is a spin glass network?]]
 [[Hopfield networks]]
 [[Modern Hopfield networks]]
-[[Experimental data]]
 
 ---
 ### Further reading

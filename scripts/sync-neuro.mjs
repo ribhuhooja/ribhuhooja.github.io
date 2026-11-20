@@ -10,9 +10,14 @@ const posts = {
   'What is a spin glass network?': { slug: 'spin-glass-networks', order: 1 },
   'Hopfield networks': { slug: 'hopfield-networks', order: 2 },
   'Modern Hopfield networks': { slug: 'modern-hopfield-networks', order: 3 },
-  'Experimental data': { slug: 'experimental-data', order: 4 },
 };
-const widgets = { '(widget)': '<div data-widget="ising"></div>' };
+// A line containing only one of these markers becomes that widget.
+const widgets = {
+  '(widget)': '<div data-widget="ising"></div>',
+  '(widget: ising)': '<div data-widget="ising"></div>',
+  '(widget: field)': '<div data-widget="ising-field"></div>',
+  '(widget: draw)': '<div data-widget="ising-draw"></div>',
+};
 const ignore = new Set(['README.md', 'WEBSITE_BRIEF.md', 'CLAUDE.md', 'CLAUDE.local.md']);
 
 const date = new Date().toISOString().slice(0, 10);
