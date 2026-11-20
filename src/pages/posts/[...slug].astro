@@ -7,8 +7,11 @@ export async function getStaticPaths() {
 }
 const { post } = Astro.props;
 const { Content } = await render(post);
+const projectPage = 'exploring-hopfield-networks';
+const showProjectLink = post.data.series === 'comp-neuro' && post.id !== projectPage;
 ---
 <Base title={post.data.title} noindex={post.data.unlisted}>
+  {showProjectLink && <Fragment slot="nav"> · <a href={`/posts/${projectPage}/`}>Exploring Hopfield networks</a></Fragment>}
   <h1>{post.data.title}</h1>
   {post.data.course && <p class="banner">Written for {post.data.course}.</p>}
   <article><Content /></article>

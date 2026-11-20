@@ -11,6 +11,7 @@ const posts = defineCollection({
     unlisted: z.boolean().default(false),
     series: z.string().optional(),
     course: z.string().optional(),
+    order: z.number().optional(),
   }),
 });
 

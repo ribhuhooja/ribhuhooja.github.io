@@ -1,14 +1,8 @@
 ---
-title: "Exploring Hopfield networks"
-date: 2026-11-18
+title: "Hopfield networks"
+date: 2026-11-20
 unlisted: true
 series: comp-neuro
-course: "Computational Neuroscience, Fall 2026"
+order: 3
 ---
-Final project for COSC 16: Computational Neuroscience
-
-
-DRAFT
-
-
-[[What is a spin glass network?]]
+Hopfield networks are

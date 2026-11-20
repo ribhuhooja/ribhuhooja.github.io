@@ -20,7 +20,7 @@ const { title, noindex = false, description } = Astro.props;
     </style>
   </head>
   <body>
-    {Astro.url.pathname !== '/' && <p><a href="/">← home</a></p>}
+    {Astro.url.pathname !== '/' && <p><a href="/">← home</a><slot name="nav" /></p>}
     <slot />
   </body>
 </html>

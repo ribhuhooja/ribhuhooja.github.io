@@ -50,9 +50,10 @@ function callouts(tree) {
     if (node.type !== 'blockquote') return;
     const first = node.children[0];
     const head = first?.type === 'paragraph' && first.children[0];
-    const m = head?.type === 'text' && head.value.match(/^\[!([\w-]+)\]([+-]?)[ \t]*/);
+    const m = head?.type === 'text' && head.value.match(/^\[!([^\]]+)\]([+-]?)[ \t]*/);
     if (!m) return;
-    const type = m[1].toLowerCase();
+    const rawType = m[1].trim();
+    const type = rawType.toLowerCase().replace(/[^a-z0-9]+/g, '-');
     const fold = m[2];
     head.value = head.value.slice(m[0].length);
 
@@ -69,7 +70,7 @@ function callouts(tree) {
       } else (inTitle ? title : rest).push(child);
     }
     const hasTitle = title.some((c) => c.type !== 'text' || c.value.trim());
-    const titleChildren = hasTitle ? title : [{ type: 'text', value: type[0].toUpperCase() + type.slice(1) }];
+    const titleChildren = hasTitle ? title : [{ type: 'text', value: rawType[0].toUpperCase() + rawType.slice(1) }];
 
     const body = node.children.slice(1);
     if (rest.some((c) => c.type !== 'text' || c.value.trim())) body.unshift({ type: 'paragraph', children: rest });
@@ -114,10 +115,22 @@ function displayMath(tree, source) {
   });
 }
 
+// Obsidian shows a single newline as a line break (its default "strict line breaks: off").
+function lineBreaks(tree) {
+  walk(tree, (node) => {
+    if (!node.children || node.type === 'code' || node.type === 'math') return;
+    node.children = node.children.flatMap((child) => {
+      if (child.type !== 'text' || !child.value.includes('\n')) return [child];
+      return child.value.split('\n').flatMap((v, i) => (i ? [{ type: 'break' }] : []).concat(v ? [{ type: 'text', value: v }] : []));
+    });
+  });
+}
+
 export default function remarkObsidian() {
   return (tree, file) => {
     displayMath(tree, String(file.value));
     wikilinks(tree, postIndex());
     callouts(tree);
+    lineBreaks(tree);
   };
 }

@@ -3,11 +3,11 @@ title: "What is a spin glass network?"
 date: 2026-11-19
 unlisted: true
 series: comp-neuro
-course: "Computational Neuroscience, Fall 2026"
+order: 1
 ---
-John Hopfield was a physicist. He worked on quantum-mechanical properties of crystals, condensed-matter physics, and molecular biology. How did he invent a neural network? To him, this was a natural thing to do. He was familiar with a certain kind of physical mode, called a spin glass network, and he was also following developments in computer science and neural networks. He had the right combination of backgrounds and had enormous success because of how he combined them.
+John Hopfield was a physicist. He worked on quantum-mechanical properties of crystals, condensed-matter physics, and molecular biology. How did he invent a neural network? To him, this was a natural thing to do. He was familiar with a certain kind of physical model, called a spin glass network, and he was also following developments in computer science and neural networks. He had the right combination of backgrounds and had enormous success because of how he combined them.
 
-To understand his perspective, we will have to understand spin glass networks. Spin-glass networks are a toy model of magnetism. They are simple to describe, and (sometimes) simple to analyze, but still exhibit a lot of interesting mathematics and phenomena, like phase transitions. They are the favorite child of statistical physicists on the physics side and probabilists on the math side. The 2022 fields medallist Hugo-Duminil Copin won his medal for solving some of the problems arising from spin glass networks, especially about phase transition temperatures.
+To understand his perspective, we will have to understand spin glass networks. Spin-glass networks are a toy model of magnetism. They are simple to describe, and (sometimes) simple to analyze, but still exhibit a lot of interesting mathematics and phenomena, like phase transitions. They are the favorite child of statistical physicists on the physics side and probabilists on the math side. The 2022 fields medallist Hugo Duminil-Copin won his medal for solving some of the problems arising from spin glass networks, especially about phase transition temperatures.
 
 ## What is a spin-glass network?
 
@@ -32,13 +32,16 @@ In the following simulation of a spin glass, try moving the slider to adjust tem
 > 
 > We have a probability distribution on states given by the Boltzmann distribution, but we also have to figure out how to "sample" the probability distribution i.e. get states in accordance to the probability rule. There are a bunch of ways of doing this, but the most standard one is called the "Metropolis-Hastings algorithm."
 > 
->  The idea behind the algorithm is to start at a random state, then choose an atom to flip. This produces a new state with a new energy (and because we just flipped a single atom, the energy difference is easy to calculate). Then, we choose the new state with probability TODO: INSERT UPDATE RULE and do this many times
+>  The idea behind the algorithm is to start at a random state, then choose an atom to flip. This produces a new state with a new energy (and because we just flipped a single atom, the energy difference is easy to calculate). Then, we choose the new state with probability $\min(1, e^{-\frac{\Delta H}T})$ and do this many many times. We could also flip in a sweep from left-to-right instead of one atom, flip in a chessboard pattern (because differently colored squares of a chessboard don't interact), etc.
 
-In this simulation, you can see a clear difference between the high-temperature and low-temperature paradigms. When the temperature is high, fluctuations dominate, and you get a random mess. At low temperatures, an atom is much more likely to be in the same spin as its neighbors, so we get large domains of the same spin. This transition happens at a *critical temperature* $T_c$, which is around $2.269$.
+In this simulation, you can see a clear difference between the high-temperature and low-temperature *phases*. When the temperature is high, fluctuations dominate, and you get a random mess. At low temperatures, an atom is much more likely to be in the same spin as its neighbors, so we get large domains of the same spin. This transition happens at a *critical temperature* $T_c$, which is around $2.269$.
 
-What happens *at* the critical point? Theoretically, in the infinitely large lattice limit, we see neither domains nor randomness but *fractals*. The behavior of these systems at the critical temperature is a fascinating phenomenon, and it even led Hopfield to conjecture the critical brain hypothesis: the brain operates at the critical parameters between different phases.
+What happens *at* the critical point? Theoretically, in the infinitely large lattice limit, we see neither domains nor randomness but *fractals*. The behavior of these systems at the critical temperature is a fascinating phenomenon, and it even led Hopfield and others to conjecture the critical brain hypothesis: the brain operates at the critical parameters between different phases.
+
+> This is exactly the same meaning of "phase" as in the phrase "phases of matter." From a statistical mechanics point of view, a phase of matter is exactly the large-scale probabilistic behavior of small independent parts. Also see: Lattice gas models.
 ## Other networks
 
+The specific network described above is called the *Ising model*, named after Ernst Ising. 
 
 
 ## Some other applications
@@ -47,5 +50,8 @@ In the next post, we will see an application of the spin glass idea to neural ne
 
 One way of doing this is called "simulated annealing." This is the idea of starting the system at a high temperature and slowly cooling it down. Conceptually, this is just like having a large step size for gradient descent and then making it smaller as time goes on. When the temperature is high, the probability difference between a high energy state and a low energy state is smaller, so states are explored more randomly. In the low temperature regime, states that are low-energy (compared to their neighbors) are much more likely. Thus, at the start the system explores states semi-randomly, and as it cools it starts to have a stronger and stronger preference for stabler states. This means that the area of configuration space that is explored at the start is large, and starts to shrink as time goes on. This means that more space is searched and the chances of ending up in a local minimum that is far from optimal are low.
 
+Up: [[Exploring Hopfield networks]]
+
 Next: [[Hopfield networks]]
+
 Math details in [[Spin-glass networks: math supplement]]
