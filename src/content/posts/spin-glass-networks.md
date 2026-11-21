@@ -56,6 +56,8 @@ There are more generalizations. In the Potts model, there are discretely many sp
 
 Perhaps my favorite version of these is the $XY$ model. It is like the Ising model, except spins are allowed to take any angle value from $0$ to $2\pi$, instead of just up and down. The interaction between neighbors is proportional to $\cos(\theta_i - \theta_j)$, so if they point in the same direction energy is minimized, just like the Ising model. When we simulate this model (for instance using colors to represent angles), in the low-temperature regime we see "vortices" and "anti-vortices" that act like charges attracting and repelling each other (for a simulation see [this](https://www.ibiblio.org/e-notes/Perc/xy.htm)). This is incredibly interesting behavior for such a simple model!
 
+<div data-widget="xy"></div>
+
 ## Some other applications
 
 In the [[Hopfield networks|next post]], we will see an application of the spin glass idea to neural networks. However, these are not the only applications of spin glass networks. One of the applications in optimization problems. The main idea is to encode some kind of optimization problem into the Hamiltonian of a spin glass system. For instance, one can map a 3-SAT type problem onto the atoms in the system and put formulas into the interaction matrix. The goal is to find a configuration that minimizes the energy.

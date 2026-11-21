@@ -11,12 +11,13 @@ const posts = {
   'Hopfield networks': { slug: 'hopfield-networks', order: 2 },
   'Modern Hopfield networks': { slug: 'modern-hopfield-networks', order: 3 },
 };
-// A line containing only one of these markers becomes that widget.
+// A line containing only one of these markers becomes that widget (case doesn't matter).
 const widgets = {
   '(widget)': '<div data-widget="ising"></div>',
   '(widget: ising)': '<div data-widget="ising"></div>',
   '(widget: field)': '<div data-widget="ising-field"></div>',
   '(widget: draw)': '<div data-widget="ising-draw"></div>',
+  '(widget: xy)': '<div data-widget="xy"></div>',
 };
 const ignore = new Set(['README.md', 'WEBSITE_BRIEF.md', 'CLAUDE.md', 'CLAUDE.local.md']);
 
@@ -29,7 +30,7 @@ for (const [name, { slug, order, title = name }] of Object.entries(posts)) {
   const oldDate = existsSync(dest) && readFileSync(dest, 'utf8').match(/^date:\s*(\S+)/m)?.[1];
   const body = readFileSync(src, 'utf8')
     .split('\n')
-    .map((line) => widgets[line.trim()] ?? line)
+    .map((line) => widgets[line.trim().toLowerCase()] ?? line)
     .join('\n')
     .replace(/^\s*\n/, '');
   const front = ['---', `title: ${JSON.stringify(title)}`, `date: ${oldDate || date}`, 'unlisted: true', 'series: comp-neuro', `order: ${order}`, '---', ''];

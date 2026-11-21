@@ -19,6 +19,7 @@ const showProjectLink = post.data.series === 'comp-neuro' && post.id !== project
 
 <script>
   if (document.querySelector('[data-widget^="ising"]')) import('../../scripts/ising.ts');
+  if (document.querySelector('[data-widget="xy"]')) import('../../scripts/xy.ts');
 </script>
 
 <style is:global>
