@@ -31,12 +31,16 @@ function wikilinks(tree, index) {
       if (child.type !== 'text' || !child.value.includes('[[')) return [child];
       const out = [];
       let last = 0;
-      for (const m of child.value.matchAll(/\[\[([^\]|#]+)(?:#[^\]|]*)?(?:\|([^\]]+))?\]\]/g)) {
+      for (const m of child.value.matchAll(/\[\[([^\]|#]+)(?:#([^\]|]*))?(?:\|([^\]]+))?\]\]/g)) {
         if (m.index > last) out.push({ type: 'text', value: child.value.slice(last, m.index) });
         const target = m[1].trim();
-        const label = (m[2] ?? target).trim();
+        const heading = m[2]?.trim();
+        // Obsidian shows [[Post#Heading]] as "Post > Heading".
+        const label = (m[3] ?? (heading ? `${target} > ${heading}` : target)).trim();
+        // Same ids Astro gives headings (github-slugger): lowercase, drop punctuation, spaces -> '-'.
+        const anchor = heading ? '#' + heading.toLowerCase().replace(/[^\p{L}\p{N}\s_-]/gu, '').replace(/\s/g, '-') : '';
         const slug = index.get(target.toLowerCase());
-        out.push(slug ? { type: 'link', url: `/posts/${slug}/`, children: [{ type: 'text', value: label }] } : { type: 'text', value: label });
+        out.push(slug ? { type: 'link', url: `/posts/${slug}/${anchor}`, children: [{ type: 'text', value: label }] } : { type: 'text', value: label });
         last = m.index + m[0].length;
       }
       if (last < child.value.length) out.push({ type: 'text', value: child.value.slice(last) });

@@ -39,12 +39,12 @@ The purpose of the Hopfield network is to take an initial pattern, and find whic
 
 The capacity of a network is how many states it can store while still being able to recall them approximately correctly. How can we estimate the capacity of a Hopfield network? The standard approaches to this problem come from statistical mechanics. Here we have to distinguish between two different types of recall. *Perfect recall* means that we end up at exactly one of the stored states, while *approximate recall* means that it's fine if we end up within a certain threshold (say $5\%$) of a stored state.
 
-Unfortunately, it turns out that there are vastly more spurious states than stored states. To test perfect recall, we always have to start close to a stored state and see if we end up exactly at that stored state. To get a theoretical bound for perfect recall, McEliece et al. compute the probability that a given stored states ends up being a stable state at all. This should give us an upper bound to the perfect recall capacity, though it does not account for spurious states.
+Unfortunately, it turns out that there are vastly more spurious states than stored states. To test perfect recall, we always have to start close to a stored state and see if we end up exactly at that stored state. To get a theoretical bound for perfect recall, McEliece et al. compute the probability that a given stored state ends up being a stable state at all. This should give us an upper bound to the perfect recall capacity, though it does not account for spurious states.
 
 For a pattern $\xi^\mu$ to be stable, each of its bits $\xi^\mu_j$ should be unflippable. In an update rule, we calculate $$\sum_i J_{ij} \xi^\mu_i = \xi^\mu_j + \sum_{i\neq j} J_{ij} \xi^\mu_i = \xi^\mu_j + \frac1N \sum_{\nu \neq \mu} \sum_{i\neq j} \xi^\nu_i \xi^\nu_j \xi^\mu_i$$
-(where we just expanded the definition of $J_{ij}$). If all the other patterns were 0, then we would just have $\xi_j^\mu$, which is called the *signal*. The other term, $\frac1N \sum_{\nu \neq \mu} \sum_{i\neq j} \xi^\nu_i \xi^\nu_j \xi^\mu_i$, is called the *crosstalk* and represents the "attraction" that other states are putting on a given stable state. Assuming Gaussian stored states, McEliece at all computer the value of the crosstalk as a random variable, and conclude that the probability of a bit error is $Ne^{-\frac N{2m}}$ (where $m$ is the number of stored patterns), so the perfect recall capacity is approximately $$m < \frac N{2 \ln N}$$
+(where we just expanded the definition of $J_{ij}$). If all the other patterns were 0, then we would just have $\xi_j^\mu$, which is called the *signal*. The other term, $\frac1N \sum_{\nu \neq \mu} \sum_{i\neq j} \xi^\nu_i \xi^\nu_j \xi^\mu_i$, is called the *crosstalk* and represents the "attraction" that other states are putting on a given stable state. Assuming Gaussian stored states, McEliece et al computed the value of the crosstalk as a random variable, and conclude that the probability of a bit error is $Ne^{-\frac N{2m}}$ (where $m$ is the number of stored patterns), so the perfect recall capacity is approximately $$m < \frac N{2 \ln N}$$
 
-One could also look at the capacity for approximate recall. In [Storing Infinite Numbers of Patterns in a Spin-Glass Model of Neural Networks](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.55.1530), Amit et al. compute this capacity. This is much harder and requires a lot more sophisticated statistical physics. They use a powerful and strange technique called the the *Replica method* or the *Replica trick.* Their findings are that there is a critical threshold $\alpha_c$, where if the load $\alpha = m/N < \alpha_c$ , approximate recall works very well, and above it, it quickly stops working at all. This is another example of a phase transition!
+One could also look at the capacity for approximate recall. In [Storing Infinite Numbers of Patterns in a Spin-Glass Model of Neural Networks](https://journals.aps.org/prl/abstract/10.1103/PhysRevLett.55.1530), Amit et al. compute this capacity. This is much harder and requires a lot more sophisticated statistical physics. They use a powerful and strange technique called the *Replica method* or the *Replica trick.* Their findings are that there is a critical threshold $\alpha_c$, where if the load $\alpha = m/N < \alpha_c$ , approximate recall works very well, and above it, it quickly stops working at all. This is another example of a phase transition!
 
 > [!note] The Replica trick
 > The replica trick is a statistical physics technique for studying these kinds of system at *quenched disorder* i.e. with fixed coupling parameters but varying spins. At some point, the calculation needs to estimate $\mathbb E[\log(Z)]$ where $Z$ is the partition function $\sum_i e^{-\beta H_i}$, $\beta = \frac 1T$. This is hard, so one uses the identity $$\log(Z) = \lim_{n\to 0} \frac{Z^n - 1}{n}$$
@@ -142,7 +142,7 @@ My results were
 | 150          | 0.150      | 0.000              |
 | 175          | 0.175      | 0.000              |
 
-Huh?! This is much lower than expected! This is Hopfield's original algorithm, and its recall is less that $0.075$, not $0.138$. In fact, when we look at the $0.138$ paper, we see that they used the Hamiltonian $H = - \sum_{i, j} J_{ij} \sigma_i \sigma_j$, not the $E$ that Hopfield used. The implementation difference is to simply use $\pm 1$ spins instead of $0, 1$ neuron activations.
+Huh?! This is much lower than expected! This is Hopfield's original algorithm, and its recall is less than $0.075$, not $0.138$. In fact, when we look at the $0.138$ paper, we see that they used the Hamiltonian $H = - \sum_{i, j} J_{ij} \sigma_i \sigma_j$, not the $E$ that Hopfield used. The implementation difference is to simply use $\pm 1$ spins instead of $0, 1$ neuron activations.
 
 ```python
 ## The only lines I had to change were:
@@ -157,7 +157,7 @@ curr[j] = 1 if netj > 0 else (-1 if netj < 0 else yj)
 
 ```
 
-From this, I recovered the capacity around $1.4$:
+From this, I recovered the capacity around $0.14$:
 
 | Patterns $m$ | Load $m/N$ | Retrieval accuracy |
 | -----------: | ---------: | -----------------: |
