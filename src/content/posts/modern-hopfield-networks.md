@@ -27,7 +27,7 @@ Building on this, [Demircigil et al.](https://arxiv.org/abs/1702.01929) introduc
 
 ## Conclusion
 
-We saw how Hopfield networks can be dreamt up from the point of view of a physicist, rather than a neuroscientist. We also saw how the physics literature and terminology helps us tackle these networks mathematically and prove bounds on them, and saw some interesting mathematics along the way. Hopfield networks and their descendants have had a lot of impact on the connections between physics and machine learning. There are other techniques, like diffusion, that give us other bridges between physics and neuroscience. Perhaps these fields are more connected than one would think.
+We saw how Hopfield networks can be dreamt up from the point of view of a physicist, rather than a neuroscientist. We also saw how the physics literature and terminology helps us tackle these networks mathematically and prove bounds on them, and saw some interesting mathematics along the way. Hopfield networks and their descendants have had a lot of impact on the connections between physics and machine learning. There are other techniques, like diffusion, that give us other bridges between physics and neuroscience. Perhaps these fields are more connected than one would think!
 
 For more information, see [[Exploring Hopfield networks#Further reading]]
 
